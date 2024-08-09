@@ -1,50 +1,43 @@
-// Define the Shape Interface
-public interface Shape {
-    void draw();
+// Vehicle Interface
+interface Vehicle {
+    void drive();
 }
 
-// Concrete Classes for Shapes
-public class Circle implements Shape {
+// Concrete Vehicle Classes
+class Car implements Vehicle {
     @Override
-    public void draw() {
-        System.out.println("Drawing a Circle");
+    public void drive() {
+        System.out.println("Driving a car");
     }
 }
 
-public class Rectangle implements Shape {
+class Truck implements Vehicle {
     @Override
-    public void draw() {
-        System.out.println("Drawing a Rectangle");
+    public void drive() {
+        System.out.println("Driving a truck");
     }
 }
 
-// Factory Class
-public class ShapeFactory {
-    // Factory method to create shapes
-    public Shape createShape(String shapeType) {
-        if (shapeType == null || shapeType.isEmpty()) {
-            return null;
-        }
-        if ("Circle".equalsIgnoreCase(shapeType)) {
-            return new Circle();
-        } else if ("Rectangle".equalsIgnoreCase(shapeType)) {
-            return new Rectangle();
+// VehicleFactory Class
+class VehicleFactory {
+    // Factory Method to create vehicles
+    public static Vehicle createVehicle(String type) {
+        if (type.equalsIgnoreCase("car")) {
+            return new Car();
+        } else if (type.equalsIgnoreCase("truck")) {
+            return new Truck();
         }
         return null;
     }
 }
 
-// Client Code with Factory Pattern
-public class WithFactoryPatternDemo {
+// Main Class
+public class Main {
     public static void main(String[] args) {
-        ShapeFactory shapeFactory = new ShapeFactory();
-
-        // Create a Circle and draw it
-        Shape circle = shapeFactory.createShape("Circle");
-        circle.draw();
-
-        // Create a Rectangle and draw it
-        Shape rectangle = shapeFactory.createShape("Rectangle");
-        rectangle.draw();
+        Vehicle vehicle1 = VehicleFactory.createVehicle("car");
+        vehicle1.drive();
+        
+        Vehicle vehicle2 = VehicleFactory.createVehicle("truck");
+        vehicle2.drive();
     }
 }

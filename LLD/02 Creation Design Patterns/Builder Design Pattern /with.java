@@ -1,68 +1,86 @@
-// House Class
-public class House {
-    private String walls;
-    private String roof;
-    private boolean garden;
+class Computer {
+    private String CPU;
+    private String RAM;
+    private String storage;
+    private String GPU;
+    private String powerSupply;
+    private String motherboard;
 
-    private House(HouseBuilder builder) {
-        this.walls = builder.walls;
-        this.roof = builder.roof;
-        this.garden = builder.garden;
+    // Private constructor to be called by the Builder
+    private Computer(ComputerBuilder builder) {
+        this.CPU = builder.CPU;
+        this.RAM = builder.RAM;
+        this.storage = builder.storage;
+        this.GPU = builder.GPU;
+        this.powerSupply = builder.powerSupply;
+        this.motherboard = builder.motherboard;
     }
 
-    // Getters
-    public String getWalls() {
-        return walls;
+    @Override
+    public String toString() {
+        return "Computer [CPU=" + CPU + ", RAM=" + RAM + ", Storage=" + storage +
+                ", GPU=" + GPU + ", PowerSupply=" + powerSupply + ", Motherboard=" + motherboard + "]";
     }
 
-    public String getRoof() {
-        return roof;
-    }
+    // Static Builder Class
+    public static class ComputerBuilder {
+        private String CPU;
+        private String RAM;
+        private String storage;
+        private String GPU;
+        private String powerSupply;
+        private String motherboard;
 
-    public boolean hasGarden() {
-        return garden;
-    }
-
-    // Static nested Builder class
-    public static class HouseBuilder {
-        private String walls;
-        private String roof;
-        private boolean garden;
-
-        public HouseBuilder setWalls(String walls) {
-            this.walls = walls;
+        // Setter methods for each component, returning the builder itself for chaining
+        public ComputerBuilder setCPU(String CPU) {
+            this.CPU = CPU;
             return this;
         }
 
-        public HouseBuilder setRoof(String roof) {
-            this.roof = roof;
+        public ComputerBuilder setRAM(String RAM) {
+            this.RAM = RAM;
             return this;
         }
 
-        public HouseBuilder setGarden(boolean garden) {
-            this.garden = garden;
+        public ComputerBuilder setStorage(String storage) {
+            this.storage = storage;
             return this;
         }
 
-        public House build() {
-            return new House(this);
+        public ComputerBuilder setGPU(String GPU) {
+            this.GPU = GPU;
+            return this;
+        }
+
+        public ComputerBuilder setPowerSupply(String powerSupply) {
+            this.powerSupply = powerSupply;
+            return this;
+        }
+
+        public ComputerBuilder setMotherboard(String motherboard) {
+            this.motherboard = motherboard;
+            return this;
+        }
+
+        // Method to build the Computer object
+        public Computer build() {
+            return new Computer(this);
         }
     }
 }
 
-// Client Code with Builder Pattern
-public class WithBuilderPatternDemo {
+public class Main {
     public static void main(String[] args) {
-        // Creating a House object using the Builder
-        House house = new House.HouseBuilder()
-                .setWalls("Brick")
-                .setRoof("Tile")
-                .setGarden(true)
+        // Creating a computer with only required components using the builder
+        Computer computer = new Computer.ComputerBuilder()
+                .setCPU("Intel i7")
+                .setRAM("16GB")
+                .setStorage("1TB SSD")
+                .setGPU("NVIDIA RTX 3080")
+                .setPowerSupply("650W")
+                .setMotherboard("ASUS ROG")
                 .build();
 
-        // Using the House object
-        System.out.println("House with walls: " + house.getWalls());
-        System.out.println("House with roof: " + house.getRoof());
-        System.out.println("House with garden: " + house.hasGarden());
+        System.out.println(computer);
     }
 }

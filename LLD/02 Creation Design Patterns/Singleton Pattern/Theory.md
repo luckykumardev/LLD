@@ -1,0 +1,1 @@
+The Singleton Pattern ensures that only one instance of a class is created and provides a global access point to that instance. This is useful when you need a single, consistent object, like a database manager, across your entire application. It also ensures thread safety in multithreaded environments, so multiple instances don't accidentally get created.

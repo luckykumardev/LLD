@@ -1,0 +1,1 @@
+<!-- These examples showcase the Observer Pattern in the context of stock price monitoring and weather monitoring. The Observer Pattern allows the subject (stock ticker or weather station) to notify multiple observers (investors or displays) about changes without tightly coupling the components, making the system more flexible and maintainable. -->

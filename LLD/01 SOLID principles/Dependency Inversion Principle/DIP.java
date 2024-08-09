@@ -1,3 +1,6 @@
+// Dependency Inversion Principle (DIP) - Classes should depend on abstractions (interfaces) rather than concrete class.
+
+
 // Before applying DIP
 class LightBulb {
     public void turnOn() {

@@ -1,32 +1,24 @@
-// Define the Shape Interface
-public interface Shape {
-    void draw();
-}
+// The Factory Design Pattern is a creational design pattern that provides an interface for creating objects 
+// in a superclass but allows subclasses to alter the type of objects that will be created.
 
-// Concrete Classes for Shapes
-public class Circle implements Shape {
-    @Override
-    public void draw() {
-        System.out.println("Drawing a Circle");
+class Car {
+    void drive() {
+        System.out.println("Driving a car");
     }
 }
 
-public class Rectangle implements Shape {
-    @Override
-    public void draw() {
-        System.out.println("Drawing a Rectangle");
+class Truck {
+    void drive() {
+        System.out.println("Driving a truck");
     }
 }
 
-// Client Code without Factory Pattern
-public class WithoutFactoryPatternDemo {
+public class Main {
     public static void main(String[] args) {
-        // Create a Circle and draw it
-        Shape circle = new Circle();
-        circle.draw();
-
-        // Create a Rectangle and draw it
-        Shape rectangle = new Rectangle();
-        rectangle.draw();
+        Car car = new Car();
+        car.drive();
+        
+        Truck truck = new Truck();
+        truck.drive();
     }
 }

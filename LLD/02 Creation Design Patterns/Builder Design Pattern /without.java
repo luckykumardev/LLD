@@ -2,41 +2,35 @@
 // In this approach, we create the House object directly using a constructor, which can become unwieldy if there are many parameters.
 
 
-// House Class
-public class House {
-    private String walls;
-    private String roof;
-    private boolean garden;
+class Computer {
+    private String CPU;
+    private String RAM;
+    private String storage;
+    private String GPU;
+    private String powerSupply;
+    private String motherboard;
 
-    public House(String walls, String roof, boolean garden) {
-        this.walls = walls;
-        this.roof = roof;
-        this.garden = garden;
+    // Constructor with all possible parameters
+    public Computer(String CPU, String RAM, String storage, String GPU, String powerSupply, String motherboard) {
+        this.CPU = CPU;
+        this.RAM = RAM;
+        this.storage = storage;
+        this.GPU = GPU;
+        this.powerSupply = powerSupply;
+        this.motherboard = motherboard;
     }
 
-    // Getters
-    public String getWalls() {
-        return walls;
-    }
-
-    public String getRoof() {
-        return roof;
-    }
-
-    public boolean hasGarden() {
-        return garden;
+    @Override
+    public String toString() {
+        return "Computer [CPU=" + CPU + ", RAM=" + RAM + ", Storage=" + storage +
+                ", GPU=" + GPU + ", PowerSupply=" + powerSupply + ", Motherboard=" + motherboard + "]";
     }
 }
 
-// Client Code without Builder Pattern
-public class WithoutBuilderPatternDemo {
+public class Main {
     public static void main(String[] args) {
-        // Creating a House object
-        House house = new House("Brick", "Tile", true);
-
-        // Using the House object
-        System.out.println("House with walls: " + house.getWalls());
-        System.out.println("House with roof: " + house.getRoof());
-        System.out.println("House with garden: " + house.hasGarden());
+        // Creating a computer with all components
+        Computer computer = new Computer("Intel i7", "16GB", "1TB SSD", "NVIDIA RTX 3080", "650W", "ASUS ROG");
+        System.out.println(computer);
     }
 }
