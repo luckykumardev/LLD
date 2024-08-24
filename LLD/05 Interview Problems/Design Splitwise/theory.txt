@@ -1,0 +1,57 @@
+
+Overview
+Splitwise is an expense-sharing application where users can create groups, add expenses, and split those expenses among the group members.
+
+Key Features
+User Management: Users can sign up, login, and manage their profiles.
+Group Management: Users can create groups, add members, and view group details.
+Expense Management: Users can add expenses to a group, split expenses among group members, and view balances.
+Settlement: Users can settle their balances with other users.
+Classes and Design Patterns
+User
+
+Attributes: userId, name, email, phoneNumber, List<Expense>, Map<User, Balance>
+Responsibilities: Manage user details, store user expenses, and track balances with other users.
+Group
+
+Attributes: groupId, groupName, List<User> members, List<Expense> expenses
+Responsibilities: Manage group details, add/remove members, and store group expenses.
+Expense
+
+Attributes: expenseId, amount, paidBy (User), List<Split> splits, Group group
+Responsibilities: Store details of an expense, the user who paid, and how it is split among the group members.
+Split (Abstract Class)
+
+Attributes: user, amount
+Responsibilities: Abstract representation of how an expense is split.
+EqualSplit, ExactSplit, PercentSplit (Inherit from Split)
+
+Attributes (EqualSplit): Inherits from Split
+Attributes (ExactSplit): Inherits from Split
+Attributes (PercentSplit): percentage (additional attribute)
+Responsibilities: Implement specific splitting strategies.
+SplitFactory (Factory Pattern)
+
+Responsibilities: Creates specific Split objects (EqualSplit, ExactSplit, PercentSplit) based on input.
+ExpenseService (Singleton Pattern)
+
+Attributes: List<Expense>, Map<User, Map<User, Balance>>
+Responsibilities: Manage expenses, track user balances, and facilitate settlements.
+Balance
+
+Attributes: amount, owedBy (User), owedTo (User)
+Responsibilities: Store balance details between two users.
+Design Patterns Used
+Factory Pattern: Used in SplitFactory to create specific types of splits (EqualSplit, ExactSplit, PercentSplit) based on user input.
+Singleton Pattern: Used in ExpenseService to ensure that there is only one instance of the service managing all expenses and balances.
+Strategy Pattern: Though not explicitly mentioned, the splitting logic can be considered as a Strategy Pattern where different splitting strategies (Equal, Exact, Percent) are encapsulated.
+Class Diagram
+Here is how the classes interact with each other:
+
+User has a one-to-many relationship with Expense.
+Group has a one-to-many relationship with User and Expense.
+Expense has a many-to-one relationship with Group and User (who paid).
+Expense has a one-to-many relationship with Split.
+Split is an abstract class with concrete subclasses EqualSplit, ExactSplit, and PercentSplit.
+ExpenseService manages all the Expenses and Balances.
+SplitFactory creates instances of Split subclasses based on the input type.
