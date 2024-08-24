@@ -1,0 +1,8 @@
+Explanation
+Task Interface: Defines a task with an execute method.
+PrintTask Class: Implements the Task interface to print a message.
+ScheduledTask Class: Encapsulates a task and its execution time, allowing for prioritization based on execution time.
+Scheduler Class: Manages task scheduling and execution. It uses a Timer to periodically check and execute tasks in the PriorityQueue.
+SchedulerFactory Class: Provides a method to get the Scheduler instance, adhering to the Singleton pattern.
+Main Class: Demonstrates how to use the Scheduler by creating tasks and scheduling them with delays.
+This code should provide a solid starting point for a Task Scheduler implementation and can be further extended based on specific requirements.
