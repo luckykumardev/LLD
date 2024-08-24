@@ -21,5 +21,5 @@ public class Expense {
     }
 
 
-    // getters of 
+    // getters of expenceId, paidBy, amt, group, splits
 }
