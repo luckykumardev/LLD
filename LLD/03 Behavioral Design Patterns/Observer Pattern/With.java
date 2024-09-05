@@ -1,81 +1,73 @@
-import java.util.ArrayList;
-import java.util.List;
-
-// Observer Interface    ----> OBSERVER
-interface Investor {
-    void update(String stockSymbol, double stockPrice);
+// Observer interface
+interface Observer {
+    void update(String message);
 }
 
-// Subject Interface     ----> OBSERVERABLE
-interface StockSubject {
-    void registerInvestor(Investor investor);
-    void removeInvestor(Investor investor);
-    void notifyInvestors();
-}
+// Subject class
+class Subject {
+    private List<Observer> observers = new ArrayList<>();
+    private String state;
 
-// Stock Ticker with Observer Pattern
-class StockTicker implements StockSubject {
-    private List<Investor> investors;
-    private String stockSymbol;
-    private double stockPrice;
-
-    public StockTicker() {
-        investors = new ArrayList<>();
+    // Method to attach (subscribe) observers
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
-    public void setPrice(String stockSymbol, double stockPrice) {
-        this.stockSymbol = stockSymbol;
-        this.stockPrice = stockPrice;
-        notifyInvestors();
-    }
-    
-    @Override
-    public void registerInvestor(Investor investor) {
-        investors.add(investor);
+    // Method to detach (unsubscribe) observers
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
     }
 
-    @Override
-    public void removeInvestor(Investor investor) {
-        investors.remove(investor);
-    }
-
-    @Override
-    public void notifyInvestors() {
-        for (Investor investor : investors) {
-            investor.update(stockSymbol, stockPrice);
+    // Method to notify all observers of a change
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(state);
         }
     }
-}
 
-// Investor A Class
-class InvestorA implements Investor {
-    @Override
-    public void update(String stockSymbol, double stockPrice) {
-        System.out.println("Investor A: " + stockSymbol + " is now $" + stockPrice);
+    // Method to change the state and notify observers
+    public void setState(String newState) {
+        this.state = newState;
+        notifyObservers();
     }
 }
 
-// Investor B Class
-class InvestorB implements Investor {
+// Concrete observer class
+class ConcreteObserver implements Observer {
+    private String name;
+
+    // Constructor for observer
+    public ConcreteObserver(String name) {
+        this.name = name;
+    }
+
+    // Update method called when the subject changes
     @Override
-    public void update(String stockSymbol, double stockPrice) {
-        System.out.println("Investor B: " + stockSymbol + " is now $" + stockPrice);
+    public void update(String message) {
+        System.out.println(name + " received update: " + message);
     }
 }
 
-// Main Class
+// Main class to test the Observer Pattern
 public class Main {
     public static void main(String[] args) {
-        StockTicker stockTicker = new StockTicker();
-        InvestorA investorA = new InvestorA();
-        InvestorB investorB = new InvestorB();
+        // Create the subject
+        Subject subject = new Subject();
 
-        // Register investors
-        stockTicker.registerInvestor(investorA);
-        stockTicker.registerInvestor(investorB);
+        // Create and attach observers
+        Observer observer1 = new ConcreteObserver("Observer 1");
+        Observer observer2 = new ConcreteObserver("Observer 2");
 
-        // Set stock prices
-        stockTicker.setPrice("AAPL", 150.00);
-        stockTicker.setPrice("GOOG", 2800.00);
+        subject.addObserver(observer1);
+        subject.addObserver(observer2);
+
+        // Change the state of the subject
+        subject.setState("State has changed!");
+
+        // You can also remove an observer
+        subject.removeObserver(observer1);
+
+        // Change state again
+        subject.setState("Another state change!");
     }
 }
